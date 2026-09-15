@@ -2,6 +2,8 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,10 +45,12 @@ public class Pizzeria {
     // Setto relazione 1:N
     // Aggiungo CascadeTyoe.REMOVE per non ciclare in caso di eliminazione
     @OneToMany (mappedBy = "pizza", cascade = CascadeType.REMOVE)
+    @JsonIgnore 
     private List<Offerta> offerte;
 
     // Relazione N:N
     @ManyToMany 
+    @JsonIgnore 
     @JoinTable (
         name = "ingredient_pizza",
         joinColumns = @JoinColumn(name = "pizza_id"),

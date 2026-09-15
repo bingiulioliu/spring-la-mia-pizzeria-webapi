@@ -55,7 +55,7 @@ public class PizzeriaRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         pizza.setId(id);
-        return new ResponseEntity<Pizzeria>(HttpStatus.OK);
+        return new ResponseEntity<Pizzeria>(pizzaService.update(pizza), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

@@ -2,6 +2,8 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,6 +37,7 @@ public class Offerta {
 
     // Setto relazione N:1
     @ManyToOne 
+    @JsonIgnore 
     @JoinColumn (name = "pizza_id", nullable = false)
     private Pizzeria pizza;
 
