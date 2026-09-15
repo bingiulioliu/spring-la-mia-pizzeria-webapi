@@ -20,52 +20,52 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 
-@RestController 
-@RequestMapping ("/api/pizzas")
+@RestController
+@RequestMapping("/api/pizzas")
 public class PizzeriaRestController {
-    
-    @Autowired 
+
+    @Autowired
     private PizzaService pizzaService;
 
-    @GetMapping 
-    public List<Pizzeria> index(){
+    @GetMapping
+    public List<Pizzeria> index() {
         List<Pizzeria> pizzas = pizzaService.findAll();
         return pizzas;
     }
 
-    @GetMapping ("/{id}")
-    public ResponseEntity<Pizzeria> show(@Valid @PathVariable Integer id){
+    @GetMapping("/{id}")
+    public ResponseEntity<Pizzeria> show(@Valid @PathVariable Integer id) {
         Optional<Pizzeria> pizzaAttempt = pizzaService.findById(id);
 
-        if (pizzaAttempt.isEmpty()){
+        if (pizzaAttempt.isEmpty()) {
             return new ResponseEntity<Pizzeria>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Pizzeria>(pizzaAttempt.get(), HttpStatus.OK);
     }
 
-    @PostMapping 
-    public ResponseEntity<Pizzeria> store (@Valid @RequestBody Pizzeria pizza){
+    @PostMapping
+    public ResponseEntity<Pizzeria> store(@Valid @RequestBody Pizzeria pizza) {
         return new ResponseEntity<Pizzeria>(pizzaService.create(pizza), HttpStatus.OK);
     }
 
-    @PutMapping ("/{id}")
-    public ResponseEntity<Pizzeria> update(@Valid @RequestBody Pizzeria pizza, @PathVariable Integer id){
+    @PutMapping("/{id}")
+    public ResponseEntity<Pizzeria> update(@Valid @RequestBody Pizzeria pizza, @PathVariable Integer id) {
 
-        if (pizzaService.findById(id).isEmpty()){
+        if (pizzaService.findById(id).isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         pizza.setId(id);
         return new ResponseEntity<Pizzeria>(HttpStatus.OK);
     }
 
-    @DeleteMapping ("/{id}"){
-        public ResponseEntity<Pizzeria> delete(@Valid @PathVariable Integer id){
-            if (pizzaService.findById(id).isEmpty()){
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            pizzaService.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.OK)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Pizzeria> delete(@Valid @PathVariable Integer id) {
+        if (pizzaService.findById(id).isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        pizzaService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
 }
